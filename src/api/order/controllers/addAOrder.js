@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const Order = require("../../../models/Order");
+const add = require("../../../models/AddCart");
 
 const addAOrder = async (req, res) => {
   const order = req.body;
@@ -7,7 +8,7 @@ const addAOrder = async (req, res) => {
   const cardIds = order?.cartItems?.map(
     (id) => new mongoose.Types.ObjectId(id)
   );
-  const deletedCardRequest = await Order.deleteMany({
+  const deletedCardRequest = await add.deleteMany({
     _id: { $in: cardIds },
   });
   res.send({ result, deletedCardRequest });
